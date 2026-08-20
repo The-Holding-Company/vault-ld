@@ -1,0 +1,20 @@
+{
+  "@context": {
+    "@base": "https://kb.holdingco.com/",
+    "hco": "https://kb.holdingco.com/vocab#",
+    "sdo": "https://schema.org/",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "type": "@type",
+    "id": "@id",
+    "title": "rdfs:label",
+    "slug": "hco:slug",
+    "entity": "hco:entity",
+    "confidence": "hco:confidence",
+    "created": { "@id": "hco:created", "@type": "xsd:date" },
+    "updated": { "@id": "hco:updated", "@type": "xsd:date" },
+    "sources": { "@id": "sdo:citation", "@container": "@set" },
+    "related": { "@id": "hco:related", "@type": "@id", "@container": "@set" },
+    "tags": { "@id": "hco:tag", "@container": "@set" }
+  }
+}
