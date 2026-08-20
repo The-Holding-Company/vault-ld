@@ -1,0 +1,86 @@
+# HoldingCo KB ontology — minimal schema for the KB/Wiki Vault-LD projection.
+#
+# Companion to KB/Wiki/wiki/context.jsonld. The exporter (vault_to_rdf.py)
+# emits an INSTANCE graph (data.ttl); this file is the hand-authored SCHEMA
+# graph, load it alongside data.ttl for validation / reasoning / SPARQL.
+#
+# Design (Phase 2, HC-1731):
+#   - Bare `type:` frontmatter values expand against @context @base, so the
+#     five class IRIs live in the vault base namespace (kb:).
+#   - All property keys map into the vocab namespace (hco:), keeping predicates
+#     cleanly separated from subjects and classes.
+#
+# Provenance: Linear HC-1731 · Claude session 4227dd71-38c7-4a56-a23c-b3efe7c0194f
+
+@prefix kb:   <https://kb.holdingco.com/> .
+@prefix hco:  <https://kb.holdingco.com/vocab#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix sdo:  <https://schema.org/> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+hco: a owl:Ontology ;
+    rdfs:label "HoldingCo KB vocabulary" ;
+    rdfs:comment "Minimal ontology backing the KB/Wiki Vault-LD projection (HC-1731)." .
+
+## ---- Classes (from `type:` values; IRIs mint in the vault base namespace) ----
+
+kb:entity a owl:Class ;
+    rdfs:label "Entity" ;
+    rdfs:comment "A HoldingCo system, service, tool, site, or agent documented as a note." .
+
+kb:concept a owl:Class ;
+    rdfs:label "Concept" ;
+    rdfs:comment "A curated concept page; every non-trivial claim cites a source." ;
+    rdfs:subClassOf skos:Concept .
+
+kb:source-summary a owl:Class ;
+    rdfs:label "Source Summary" ;
+    rdfs:comment "A distilled summary of a raw source under Wiki/raw/." .
+
+kb:log a owl:Class ;
+    rdfs:label "Log" ;
+    rdfs:comment "A vault-structural change log. Navigational, not knowledge content." .
+
+kb:index a owl:Class ;
+    rdfs:label "Index" ;
+    rdfs:comment "A vault-structural index. Navigational, not knowledge content." .
+
+## ---- Properties (from frontmatter keys; minted in the vocab namespace) ----
+
+hco:slug a owl:DatatypeProperty ;
+    rdfs:label "slug" ;
+    rdfs:comment "Stable kebab-case identifier for the note." ;
+    rdfs:range xsd:string .
+
+hco:entity a owl:DatatypeProperty ;
+    rdfs:label "owning entity" ;
+    rdfs:comment "The HoldingCo entity that owns the note (identity-context value)." ;
+    rdfs:range xsd:string .
+
+hco:confidence a owl:DatatypeProperty ;
+    rdfs:label "confidence" ;
+    rdfs:comment "Author confidence in the note's claims (high | medium | low)." ;
+    rdfs:range xsd:string .
+
+hco:created a owl:DatatypeProperty ;
+    rdfs:label "created" ;
+    rdfs:range xsd:date .
+
+hco:updated a owl:DatatypeProperty ;
+    rdfs:label "updated" ;
+    rdfs:range xsd:date .
+
+hco:related a owl:ObjectProperty ;
+    rdfs:label "related" ;
+    rdfs:comment "A link to another note (wikilink in frontmatter, IRI in RDF)." .
+
+hco:tag a owl:DatatypeProperty ;
+    rdfs:label "tag" ;
+    rdfs:comment "A taxonomy tag (see the tag-manager taxonomy)." ;
+    rdfs:range xsd:string .
+
+## ---- Reused external terms (declared here only for documentation) ----
+# rdfs:label   <- `title:`   (note display name)
+# sdo:citation <- `sources:` (paths to raw sources under Wiki/raw/)

@@ -4,9 +4,12 @@
     "hco": "https://kb.holdingco.com/vocab#",
     "sdo": "https://schema.org/",
     "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
+
     "type": "@type",
     "id": "@id",
+
     "title": "rdfs:label",
     "slug": "hco:slug",
     "entity": "hco:entity",
@@ -15,6 +18,6 @@
     "updated": { "@id": "hco:updated", "@type": "xsd:date" },
     "sources": { "@id": "sdo:citation", "@container": "@set" },
     "related": { "@id": "hco:related", "@type": "@id", "@container": "@set" },
-    "tags": { "@id": "hco:tag", "@container": "@set" }
+    "tags":    { "@id": "hco:tag", "@container": "@set" }
   }
 }
