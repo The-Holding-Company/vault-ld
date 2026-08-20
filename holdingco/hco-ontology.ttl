@@ -17,6 +17,7 @@
 @prefix owl:  <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix sdo:  <https://schema.org/> .
 @prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
 
@@ -79,6 +80,12 @@ hco:related a owl:ObjectProperty ;
 hco:tag a owl:DatatypeProperty ;
     rdfs:label "tag" ;
     rdfs:comment "A taxonomy tag (see the tag-manager taxonomy)." ;
+    rdfs:range xsd:string .
+
+hco:session a owl:DatatypeProperty ;
+    rdfs:label "minting session" ;
+    rdfs:comment "The Claude session UUID that authored the note (frontmatter `id:` = session_id, per the 'session_id as id' convention). Provenance, NOT a per-note key — many notes legitimately share one session id (HC-1734). Subjects are path-minted (SPEC §4.5), never id-minted." ;
+    rdfs:subPropertyOf prov:wasGeneratedBy ;
     rdfs:range xsd:string .
 
 ## ---- Reused external terms (declared here only for documentation) ----

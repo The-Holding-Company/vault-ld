@@ -1,0 +1,23 @@
+{
+  "generated": "2026-08-20 13:38:47Z",
+  "vault": "/Users/chris.bergeron/Documents/00-HoldingCompany/KB/Wiki/wiki",
+  "metrics": {
+    "instance_triples": 1866,
+    "ontology_triples": 49,
+    "distinct_subjects": 119,
+    "class_counts": {
+      "entity": 83,
+      "source-summary": 26,
+      "concept": 11,
+      "log": 2,
+      "index": 1
+    },
+    "orphan_notes": 50
+  },
+  "warnings": {
+    "subject_merge": 7,
+    "dangling_link": 31
+  },
+  "warnings_total": 38,
+  "oxigraph": "loaded (data=204, ontology=204)"
+}

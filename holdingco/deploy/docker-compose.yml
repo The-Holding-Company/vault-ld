@@ -1,0 +1,25 @@
+# Vault-LD KB graph — Oxigraph SPARQL store (Phase 3, HC-1732)
+# Single-binary RDF store; read-only query surface for the KB/Wiki projection.
+# Bound to localhost only — exposed on the LAN/WG via Traefik separately if wanted.
+services:
+  oxigraph:
+    image: ghcr.io/oxigraph/oxigraph:0.4.11
+    container_name: vault-ld-oxigraph
+    command: serve --location /data --bind 0.0.0.0:7878
+    # Attach to the default bridge: the Docker host's address pools are fully
+    # subnetted by the other stacks, so we create no new per-project network.
+    network_mode: bridge
+    # Publish on 0.0.0.0 *inside the VM* so Colima's port-forwarder picks it up
+    # and forwards to the Mac's 127.0.0.1:7878 (a 127.0.0.1 VM binding is not
+    # forwarded). The image is distroless — no shell — so no container healthcheck.
+    ports:
+      - "7878:7878"
+    volumes:
+      - oxigraph-data:/data
+    restart: unless-stopped
+    labels:
+      com.holdingco.stack: "vault-ld-graph"
+      com.holdingco.linear: "HC-1732"
+
+volumes:
+  oxigraph-data:
